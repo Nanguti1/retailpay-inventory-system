@@ -69,7 +69,7 @@ Dashboard, products, sales, and transfers are scoped to the user’s allowed sto
    DB_PASSWORD=your_password
    ```
 
-3. **Run migrations** (use 2026 migrations only; remove any old 2025 inventory migrations if present):
+3. **Run migrations**:
 
    ```bash
    php artisan migrate
@@ -113,9 +113,6 @@ Dashboard, products, sales, and transfers are scoped to the user’s allowed sto
 | store-b1@example.com| Store Manager | Store B1   |
 | store-b2@example.com| Store Manager | Store B2   |
 
-### Migration dates
-
-All inventory-related migrations use dates starting with **2026** (e.g. `2026_01_01_000001_create_branches_table.php`). If you have older migrations (e.g. 2025) for the same tables, remove or skip them to avoid duplicate table errors.
 
 ## Optional: Alpine.js
 

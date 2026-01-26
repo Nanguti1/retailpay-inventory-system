@@ -22,7 +22,7 @@
                                 <span class="font-medium text-zinc-900">{{ $p->name }}</span><br>
                                 <span class="text-zinc-500">{{ $p->sku }}</span>
                             </td>
-                            <td class="text-right">${{ number_format($p->price, 2) }}</td>
+                            <td class="text-right">Ksh. {{ number_format($p->price, 2) }}</td>
                             @foreach ($stores as $s)
                                 @php $entry = $p->stockEntries->firstWhere('store_id', $s->id); @endphp
                                 <td class="text-right">{{ $entry ? $entry->quantity : 0 }}</td>

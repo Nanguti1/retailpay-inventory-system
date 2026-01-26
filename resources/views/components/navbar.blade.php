@@ -8,7 +8,7 @@
         <div class="flex-1 lg:flex-none"></div>
         <div class="flex items-center gap-3">
             <span class="text-sm text-zinc-600">{{ auth()->user()->name }}</span>
-            <span class="rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-700">
+            <span class="rounded-lg bg-zinc-200 px-2 py-2 text-xs font-medium text-zinc-700">
                 {{ ucfirst(str_replace('_', ' ', auth()->user()->role)) }}
             </span>
             <form method="POST" action="{{ route('logout') }}" class="inline">

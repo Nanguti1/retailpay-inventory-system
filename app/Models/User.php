@@ -18,6 +18,7 @@ class User extends Authenticatable
     public const ROLE_STORE_MANAGER = 'store_manager';
 
     /**
+     * 
      * The attributes that are mass assignable.
      *
      * @var list<string>

@@ -28,8 +28,8 @@
                             <td>{{ $sale->store->name }}</td>
                             <td>{{ $sale->product->name }}</td>
                             <td class="text-right">{{ $sale->quantity }}</td>
-                            <td class="text-right">${{ number_format($sale->unit_price, 2) }}</td>
-                            <td class="text-right font-medium">${{ $sale->total }}</td>
+                            <td class="text-right">Ksh. {{ number_format($sale->unit_price, 2) }}</td>
+                            <td class="text-right font-medium">Ksh. {{ $sale->total }}</td>
                         </tr>
                     @empty
                         <tr><td colspan="6" class="py-8 text-center text-zinc-500">No sales recorded yet.</td></tr>
