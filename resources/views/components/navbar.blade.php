@@ -13,7 +13,7 @@
             </span>
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
-                <button type="submit" class="text-sm text-zinc-600 hover:text-zinc-900">Logout</button>
+                <button type="submit" class="cursor-pointer text-sm text-zinc-600 hover:text-zinc-900">Logout</button>
             </form>
         </div>
     </div>
