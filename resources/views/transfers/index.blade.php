@@ -37,16 +37,18 @@
                             </td>
                             <td class="text-zinc-500">{{ $t->created_at->format('M j, Y') }}</td>
                             <td class="text-right">
-                                @if ($t->isPending())
+                                @if ($t->isPending() && auth()->user()->canFacilitateTransfers())
                                     <form action="{{ route('transfers.complete', $t) }}" method="POST" class="inline">
                                         @csrf
-                                        <button type="submit" class="text-indigo-600 hover:text-indigo-800">Complete</button>
+                                        <button type="submit" class="cursor-pointer text-indigo-600 hover:text-indigo-800">Complete</button>
                                     </form>
                                     <span class="mx-1 text-zinc-300">|</span>
                                     <form action="{{ route('transfers.cancel', $t) }}" method="POST" class="inline" onsubmit="return confirm('Cancel this transfer?');">
                                         @csrf
-                                        <button type="submit" class="text-red-600 hover:text-red-800">Cancel</button>
+                                        <button type="submit" class="cursor-pointer text-red-600 hover:text-red-800">Cancel</button>
                                     </form>
+                                @elseif ($t->isPending())
+                                    <span class="text-zinc-500 text-xs">Pending</span>
                                 @endif
                             </td>
                         </tr>

@@ -41,6 +41,7 @@ class DashboardController extends Controller
             ->get();
 
         return view('dashboard', [
+            'title' => 'Dashboard',
             'totalStock' => $totalStock,
             'stockPerStore' => $stockPerStore,
             'recentSales' => $recentSales,

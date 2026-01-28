@@ -17,7 +17,7 @@ class AuthController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('auth.login');
+        return view('auth.login', ['title' => 'Sign in']);
     }
 
     public function login(Request $request): RedirectResponse
@@ -46,7 +46,7 @@ class AuthController extends Controller
             return redirect()->route('dashboard');
         }
 
-        return view('auth.register');
+        return view('auth.register', ['title' => 'Register']);
     }
 
     public function register(Request $request): RedirectResponse

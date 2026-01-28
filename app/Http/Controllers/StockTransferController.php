@@ -29,16 +29,25 @@ class StockTransferController extends Controller
             ->orderByDesc('created_at')
             ->paginate(15);
 
-        return view('transfers.index', compact('transfers'));
+        return view('transfers.index', [
+            'transfers' => $transfers,
+            'title' => 'Transfers',
+        ]);
     }
 
     public function create(): View
     {
         $storeIds = auth()->user()->allowedStoreIds();
-        $stores = Store::whereIn('id', $storeIds)->orderBy('name')->get();
+        $fromStores = Store::whereIn('id', $storeIds)->orderBy('name')->get();
+        $allStores = Store::orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 
-        return view('transfers.create', compact('stores', 'products'));
+        return view('transfers.create', [
+            'fromStores' => $fromStores,
+            'allStores' => $allStores,
+            'products' => $products,
+            'title' => 'Request transfer',
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -51,11 +60,6 @@ class StockTransferController extends Controller
             'product_id' => ['required', 'integer', 'exists:products,id'],
             'quantity' => ['required', 'integer', 'min:1'],
         ]);
-
-        // Destination store must be allowed for branch manager / admin; store manager can only transfer from their store
-        if (! in_array((int) $validated['to_store_id'], $storeIds, true)) {
-            return back()->withInput()->with('error', 'You cannot transfer to that store.');
-        }
 
         try {
             $this->transferService->requestTransfer(
@@ -74,6 +78,10 @@ class StockTransferController extends Controller
 
     public function complete(int $id): RedirectResponse
     {
+        if (! auth()->user()->canFacilitateTransfers()) {
+            abort(403, 'Only branch managers or administrators can complete transfers.');
+        }
+
         $storeIds = auth()->user()->allowedStoreIds();
         $transfer = StockTransfer::findOrFail($id);
 
@@ -92,6 +100,10 @@ class StockTransferController extends Controller
 
     public function cancel(int $id): RedirectResponse
     {
+        if (! auth()->user()->canFacilitateTransfers()) {
+            abort(403, 'Only branch managers or administrators can cancel transfers.');
+        }
+
         $storeIds = auth()->user()->allowedStoreIds();
         $transfer = StockTransfer::findOrFail($id);
 

@@ -2,7 +2,7 @@
 @section('content')
 <div class="mx-auto max-w-2xl">
     <h1 class="text-2xl font-bold text-zinc-900">Request stock transfer</h1>
-    <p class="mt-1 text-zinc-600">Move stock from one store to another (inter-store or inter-branch).</p>
+    <p class="mt-1 text-zinc-600">Request stock to be moved from one store to another. {{ auth()->user()->canFacilitateTransfers() ? 'Branch managers and admins can also complete or cancel transfers from the list.' : 'A branch manager or administrator will complete the transfer.' }}</p>
     <x-card class="mt-6">
         <form method="POST" action="{{ route('transfers.store') }}" class="space-y-4">
             @csrf
@@ -10,7 +10,7 @@
                 <label for="from_store_id" class="block text-sm font-medium text-zinc-700">From store</label>
                 <select id="from_store_id" name="from_store_id" required class="mt-1 block w-full rounded-lg border border-zinc-300 px-3 py-2 @error('from_store_id') border-red-500 @enderror">
                     <option value="">Select source store</option>
-                    @foreach ($stores as $s)
+                    @foreach ($fromStores as $s)
                         <option value="{{ $s->id }}" {{ old('from_store_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
                     @endforeach
                 </select>
@@ -20,7 +20,7 @@
                 <label for="to_store_id" class="block text-sm font-medium text-zinc-700">To store</label>
                 <select id="to_store_id" name="to_store_id" required class="mt-1 block w-full rounded-lg border border-zinc-300 px-3 py-2 @error('to_store_id') border-red-500 @enderror">
                     <option value="">Select destination store</option>
-                    @foreach ($stores as $s)
+                    @foreach ($allStores as $s)
                         <option value="{{ $s->id }}" {{ old('to_store_id') == $s->id ? 'selected' : '' }}>{{ $s->name }}</option>
                     @endforeach
                 </select>

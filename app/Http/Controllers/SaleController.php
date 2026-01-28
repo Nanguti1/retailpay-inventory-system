@@ -26,7 +26,7 @@ class SaleController extends Controller
             ->orderByDesc('sold_at')
             ->paginate(15);
 
-        return view('sales.index', compact('sales'));
+        return view('sales.index', ['sales' => $sales, 'title' => 'Sales']);
     }
 
     public function create(): View
@@ -35,7 +35,11 @@ class SaleController extends Controller
         $stores = Store::whereIn('id', $storeIds)->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 
-        return view('sales.create', compact('stores', 'products'));
+        return view('sales.create', [
+            'stores' => $stores,
+            'products' => $products,
+            'title' => 'New sale',
+        ]);
     }
 
     public function store(Request $request): RedirectResponse

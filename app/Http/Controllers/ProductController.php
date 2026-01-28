@@ -19,6 +19,10 @@ class ProductController extends Controller
             $product->load(['stockEntries' => fn ($q) => $q->whereIn('store_id', $storeIds)->with('store')]);
         }
 
-        return view('products.index', compact('products', 'stores'));
+        return view('products.index', [
+            'products' => $products,
+            'stores' => $stores,
+            'title' => 'Products',
+        ]);
     }
 }
