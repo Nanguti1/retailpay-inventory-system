@@ -2,6 +2,8 @@
 
 A full-stack Laravel 12 application for managing inventory across branches and stores. Blade + Tailwind CSS, no SPA.
 
+**[Live demo](https://wanyonyi.blvdguide.com/)**
+
 ## Assumptions
 
 - **Branches & stores**: Branch A has 1 store (Store A1). Branch B has 2 stores (Store B1, Store B2).
