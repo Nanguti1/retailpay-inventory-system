@@ -38,13 +38,11 @@ class StockTransferController extends Controller
     public function create(): View
     {
         $storeIds = auth()->user()->allowedStoreIds();
-        $fromStores = Store::whereIn('id', $storeIds)->orderBy('name')->get();
-        $allStores = Store::orderBy('name')->get();
+        $allowedStores = Store::whereIn('id', $storeIds)->orderBy('name')->get();
         $products = Product::orderBy('name')->get();
 
         return view('transfers.create', [
-            'fromStores' => $fromStores,
-            'allStores' => $allStores,
+            'allowedStores' => $allowedStores,
             'products' => $products,
             'title' => 'Request transfer',
         ]);
